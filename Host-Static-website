@@ -1,0 +1,27 @@
+--- #MY ANSIBLE PLAYBOOK VERSION 0.1
+- hosts: all
+  become: yes
+  connection: ssh
+  tasks:
+    - name: Install httpd
+      yum:
+        name: httpd
+        state: present
+    - name: Restart httpd
+      service:
+        name: httpd
+        state: restarted
+    - name: Enable Httpd
+      service:
+        name: httpd
+        enabled: true
+    - name: Git Installation
+      ansible.builtin.yum:
+        name: git
+        state: present
+    - name: Deploy Static website
+
+      ansible.builtin.git:
+          dest: /var/www/html/
+          repo: https://github.com/mdashrafadib/webcode.git
+
